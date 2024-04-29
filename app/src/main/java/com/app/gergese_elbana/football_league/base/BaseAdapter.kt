@@ -6,9 +6,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.app.gergese_elbana.football_league.base.BaseAdapter.BaseDataViewHolder
+import com.example.football_league.BR
 
 abstract class BaseAdapter<T>(
-    private var items: List<T>,
+    private var items: ArrayList<T>,
     private var listener: BaseInteractionListener
 ) : RecyclerView.Adapter<BaseDataViewHolder>() {
     abstract var layoutId: Int
@@ -20,7 +21,8 @@ abstract class BaseAdapter<T>(
     class ItemDataViewHolder(val binding: ViewDataBinding) : BaseDataViewHolder(binding)
 
     fun setItems(newItems: List<T>) {
-        items = newItems
+        items.addAll(newItems)
+        notifyDataSetChanged()
     }
 
     fun getItems() = items
@@ -31,7 +33,9 @@ abstract class BaseAdapter<T>(
         when (holder) {
             is ItemDataViewHolder -> {
                 /** use it when you have recyclerview item but you should make items of recyclers have the same name of variable("item" and listener) **/
-//                holder.binding.setVariable(BR.item, currentItem)
+
+                holder.binding.setVariable(BR.item, currentItem)
+             //   holder.binding.setVariable(BR.item, currentItem)
 //                holder.binding.setVariable(BR.listener, listener)
             }
 
@@ -44,5 +48,7 @@ abstract class BaseAdapter<T>(
             DataBindingUtil.inflate(LayoutInflater.from(parent.context), layoutId, parent, false)
         )
     }
+
+
 
 }

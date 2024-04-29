@@ -12,8 +12,7 @@ class FootballApplication : Application() {
         super.onCreate()
         GlobalContext.startKoin {
             androidContext(this@FootballApplication)
-            modules(listOf(networkModule,repositoryModule,viewModelModules))
-
+            modules(listOf(networkModule, repositoryModule, viewModelModules))
         }
     }
 }
